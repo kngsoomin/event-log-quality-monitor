@@ -1,12 +1,29 @@
+# .gitignore
+# Python
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.DS_Store
 
-*.db
+# Virtual environment
+venv/
 
-.env
-
+# Data
 data/raw/
 data/processed/
-!data/demo/
-!data/.gitkeep
+*.db
+*.tsv
+*.zip
 
-personal/
+# Streamlit & logs
+.streamlit/
+*.log
+
+# Test cache
+.pytest_cache/
+.cache/
+
+# IDE
+.vscode/
+.idea/

@@ -1,6 +1,7 @@
 # Event Log Quality Monitor (Wikipedia Clickstream)
 
-> **A hands-on prototype for end-to-end data quality and SLA monitoring** </br> > _Stack: FastAPI · SQLite · Pandas · Streamlit_
+> **A hands-on prototype for end-to-end data quality and SLA monitoring** </br>
+> Stack: FastAPI · SQLite · Pandas · Streamlit\_
 
 ## Demo
 
