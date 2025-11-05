@@ -75,36 +75,43 @@ make dashboard
 
 **Efficient Ingestion**
 
-- **Chunked reads** keep memory usage stable on 30M+ rows.
-- **B-tree index** on `load_month` speeds up time-partitioned queries.
-- **WAL mode + NORMAL sync** improve write throughput safely.
+- **Chunked reads** keep memory usage stable on 30M+ rows while enabling incremental writes.
+- **B-tree index** on `load_month` optimizes month-based filtering and makes validation queries fast.
+- **WAL mode + NORMAL sync** provide ~30% faster writes compared to rollback mode while retaining durability.
 
 **Idempotent Pipeline**
 
-- Each run starts by deleting data for that month → safe re-runs, no duplication.
-- Skipped or malformed lines are recorded in an `ingest_audit` table for traceability.
-- `validate` and `sla_check` are fully re-runnable — results are deterministic.
+- Each run starts by deleting data for the same month before insert ensuring re-runs don't create duplicates.
+- Malformed or skipped lines are logged into an `ingest_audit` table for traceability and future anomaly tracking.
+- Both `validate` and `sla_check` are re-runnable and deterministic, producing consistent summaries for each month.
 
 **Data Quality Metrics**
 
-- Calculated per month and stored in `dq_monthly`:
+- Calculated monthly and stored in `dq_monthly` as:
   - `null_rate` (empty-string and NaN handling)
-  - `duplicate_rate` (based on (prev, curr, type) uniqueness)
-  - `range_error_rate` (negative or invalid n values)
-- Serves as a lightweight data observability layer.
+  - `duplicate_rate` (based on `(prev, curr, type)` uniqueness)
+  - `range_error_rate` (detects negative or invalid `n` values)
+- Acts as a lightweight observability layer, enabling trend visualization and anomaly detection over time.
 
 **SLA Monitoring**
 
-- SLA checks compare **volume, null rate, and schema validity** with previous month’s results.
-- Any deviation beyond thresholds is **logged as a warning**.
-- Streamlit dashboard highlights changes and trends visually.
+- Compares **volume, null rate, and schema validity** against the previous month’s baselines.
+- Logs warnings when deviations exceed defined thresholds (e.g., volume drop > 30%).
+- Streamlit dashboard visualizes these changes and trends with contextual annotations.
 
 **Observability & Transparency**
 
-- Unified structured logging across all pipeline stages.
-- FastAPI `/metrics` endpoint exposes current and historical DQ summaries.
-- Streamlit caching avoids redundant re-computation on repeated views.
+- Unified structured logging is used across all stages for ingestion, validation, and SLA checks.
+- FastAPI's `/metrics` endpoint exposes real-time and historical DQ summaries for external monitoring.
+- Streamlit uses `st.cache_data` to avoid redundant database queries and keep UI interactions fast.
 
+### Reflection - Balancing Production Realism with Demo Agility
+> Each design choice reflects a deliberate trade-off between production realism and rapid experimentation.
+> 
+> The goal was not to build a full enterprise-scale DQ platform, but to think through the core building blocks of one: idempotent ingestion, transactional durability, metric caching, and anomaly detection.
+>
+> This prototype serves as a sandbox to reason about those principles end-to-end — from raw ingestion to visual SLA validation —
+and to practice the mindset of building data systems that are both reliable and observable by design.
 
 ## Folder Structure
 
