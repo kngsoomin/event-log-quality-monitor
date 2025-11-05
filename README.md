@@ -1,13 +1,12 @@
 # Event Log Quality Monitor (Wikipedia Clickstream)
 
 > **A hands-on prototype for end-to-end data quality and SLA monitoring** </br>
-> Stack: FastAPI · SQLite · Pandas · Streamlit\_
+> Stack: FastAPI · SQLite · Pandas · Streamlit
 
 ## Demo
 
 [placeholder for video]()
 
----
 
 ## Objective
 
@@ -19,7 +18,6 @@ from ingestion stability and idempotent ETL design to data validation and SLA mo
 Through this, I wanted to explore what it really means to build **a trustworthy and observable data system** from the ground up —
 not just moving data, but ensuring its quality, reliability, and explainability.
 
----
 
 ## The Dataset
 
@@ -34,16 +32,15 @@ Wikipedia Clickstream tracks how users move between pages — essentially an eve
 Each monthly file (e.g., clickstream-enwiki-2025-09.tsv) contains 30M+ rows,
 large enough to surface real-world challenges such as slow ingestion, schema drift, and consistency management. [Learn more about the dataset](https://meta.wikimedia.org/wiki/Research:Wikipedia_clickstream).
 
----
 
 ## System Flow
 
 ```mermaid
-flowchart;
-    A[1️⃣ Fetch Clickstream TSV] --> B[2️⃣ Ingest → SQLite];
-    B --> C[3️⃣ Validate → dq_monthly summary];
-    C --> D[4️⃣ SLA Check → Logs & Metrics];
-    D --> E[5️⃣ Streamlit Dashboard];
+flowchart LR
+    A["1️⃣ Fetch Clickstream TSV"] --> B["2️⃣ Ingest → SQLite"];
+    B --> C["3️⃣ Validate → dq_monthly summary"];
+    C --> D["4️⃣ SLA Check → Logs & Metrics"];
+    D --> E["5️⃣ Streamlit Dashboard"];
 ```
 
 **1. Fetch**: Download monthly Clickstream TSVs automatically.
@@ -56,7 +53,6 @@ flowchart;
 
 **5. Dashboard**: Visualize trends and SLA compliance with Streamlit.
 
----
 
 ## Installation & Quick Run
 
@@ -74,7 +70,6 @@ make serve
 make dashboard
 ```
 
----
 
 ## Key Design Decisions
 
@@ -110,7 +105,6 @@ make dashboard
 - FastAPI `/metrics` endpoint exposes current and historical DQ summaries.
 - Streamlit caching avoids redundant re-computation on repeated views.
 
----
 
 ## Folder Structure
 
