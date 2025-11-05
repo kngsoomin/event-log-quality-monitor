@@ -5,7 +5,7 @@
 
 ## Demo
 
-[placeholder for video]()
+![demo](https://github.com/kngsoomin/event-log-quality-monitor/blob/ff5e91e56fb32d9640e6e3e434fe968283724651/docs/demo.gif)
 
 
 ## Objective
