@@ -1,0 +1,12 @@
+__pycache__/
+
+*.db
+
+.env
+
+data/raw/
+data/processed/
+!data/demo/
+!data/.gitkeep
+
+personal/
