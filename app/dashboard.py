@@ -145,7 +145,7 @@ else:
     )
 
     band = alt.Chart(pd.DataFrame({
-        "y1": [-(drop_threshold)], "y2": [0]  # drop allowed from -threshold% to 0%
+        "y1": [-(drop_threshold)], "y2": [(drop_threshold)]  # drop allowed from -threshold% to 0%
     })).mark_rect(opacity=0.15).encode(
         y=alt.Y("y1:Q", title="Δ rows (%)"),
         y2="y2:Q"
