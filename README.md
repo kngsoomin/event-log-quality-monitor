@@ -77,7 +77,7 @@ make dashboard
 
 - **Chunked reads** keep memory usage stable on 30M+ rows while enabling incremental writes.
 - **B-tree index** on `load_month` optimizes month-based filtering and makes validation queries fast.
-- **WAL mode + NORMAL sync** provide ~30% faster writes compared to rollback mode while retaining durability.
+- **WAL mode + NORMAL sync** balance durability with faster write performance.
 
 **Idempotent Pipeline**
 
