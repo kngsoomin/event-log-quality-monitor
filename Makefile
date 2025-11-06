@@ -23,7 +23,7 @@ help:
 	@echo "  serve             - Run FastAPI dev server"
 	@echo "  dashboard         - Run Streamlit dashboard"
 	@echo "  anomaly           - Inject anomalies for MONTH (KEEP=$(KEEP), NULLRATE=$(NULLRATE))"
-	@echo "  test              - Run pytest (if configured)"
+	@echo "  test              - Run pytest"
 
 init:
 	pip install -r requirements.txt
